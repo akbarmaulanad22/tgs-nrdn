@@ -20,6 +20,11 @@
             }
         </style>
 
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        />
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
@@ -46,122 +51,139 @@
             </div>
     </body> --}}
 
-    <body class="text-gray-800 antialiased">
-        <nav
-          class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 "
-        >
-          <div
-            class="container px-4 mx-auto flex flex-wrap items-center justify-between"
-          >
+      <body class="text-gray-800 antialiased">
+          <nav class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 ">
             <div
-              class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
+              class="container px-4 mx-auto flex flex-wrap items-center justify-between"
             >
-              <a
-                class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
-                href="/"
-                >Laundry Nurdin</a
-              ><button
-                class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-                type="button"
-                onclick="toggleNavbar('example-collapse-navbar')"
+              <div
+                class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
               >
-                <i class="text-white fas fa-bars"></i>
-              </button>
+                <a
+                  class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
+                  href="/"
+                  >Laundry Nurdin</a
+                ><button
+                  class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+                  type="button"
+                  onclick="toggleNavbar('example-collapse-navbar')"
+                >
+                  <i class="text-white fas fa-bars"></i>
+                </button>
+              </div>
+              <div
+                class="lg:flex flex-grow items-center bg-transparent lg:bg-transparent lg:shadow-none hidden my-3"
+                id="example-collapse-navbar"
+              >
+                <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
+                  @if (Route::has('login'))
+                          @auth
+                            <li class="flex items-center">
+                              <a href="{{ route('dashboard') }}"
+                                class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+                                type="button"
+                                style="transition: all 0.15s ease 0s;"
+                              >
+                                Dashboard
+                              </a>
+                            </li>
+                          @else
+                            <li class="flex items-center">
+                              <a href="{{ route('login') }}"
+                                class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+                                type="button"
+                                style="transition: all 0.15s ease 0s;"
+                              >
+                                Login
+                              </a>
+                            </li>
+                              @if (Route::has('register'))
+                                <li class="flex items-center">
+                                  <a
+                                    class="text-white lg:hover:text-gray-300 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                                    href="{{ route('register') }}"
+                                    >
+                                    Register</a
+                                  >
+                                </li>
+                              @endif
+                          @endauth
+                  @endif
+                  
+                  
+                </ul>
+              </div>
             </div>
+          </nav>
+          <main>
             <div
-              class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none hidden"
-              id="example-collapse-navbar"
+              class="relative pt-16 pb-32 flex content-center items-center justify-center"
+              style="min-height: 75vh;"
             >
-              <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
-                <li class="flex items-center">
-                  <a href="{{ route('login') }}"
-                    class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
-                    type="button"
-                    style="transition: all 0.15s ease 0s;"
-                  >
-                    <i class="fas fa-arrow-alt-circle-down"></i> Login
-                  </a>
-                </li>
-                <li class="flex items-center">
-                    <a
-                      class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                      href="{{ route('register') }}"
-                      ><i
-                        class="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2"
-                      ></i>
-                      Register</a
-                    >
-                  </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <main>
-          <div
-            class="relative pt-16 pb-32 flex content-center items-center justify-center"
-            style="min-height: 75vh;"
-          >
-            <div
-              class="absolute top-0 w-full h-full bg-center bg-cover"
-              style='background-image: url("{{ asset('images/fr.jpg') }}");'
-            >
-              <span
-                id="blackOverlay"
-                class="w-full h-full absolute opacity-75 bg-black"
-              ></span>
-            </div>
-            <div class="container relative mx-auto">
-              <div class="items-center flex flex-wrap">
-                <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-                  <div class="pr-12">
-                    <h1 class="text-white font-semibold text-5xl">
-                        Laundry Nurdin
-                    </h1>
+              <div
+                class="absolute top-0 w-full h-full bg-center bg-cover"
+                style='background-image: url("{{ asset('images/fr.jpg') }}");'
+              >
+                <span
+                  id="blackOverlay"
+                  class="w-full h-full absolute opacity-75 bg-black"
+                ></span>
+              </div>
+              <div class="container relative mx-auto">
+                <div class="items-center flex flex-wrap">
+                  <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+                    <div class="pr-12">
+                      <h1 class="text-white font-semibold text-5xl">
+                          Laundry Nurdin
+                      </h1>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
-              style="height: 70px;"
-            >
-              <svg
-                class="absolute bottom-0 overflow-hidden"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-                version="1.1"
-                viewBox="0 0 2560 100"
-                x="0"
-                y="0"
+              <div
+                class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
+                style="height: 70px;"
               >
-                <polygon
-                  class="text-gray-300 fill-current"
-                  points="2560 0 2560 100 0 100"
-                ></polygon>
-              </svg>
-            </div>
-          </div>
-        </main>
-        <footer class="relative bg-gray-300 pt-8 pb-6">
-          <div
-            class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
-            style="height: 80px;"
-          >
-          </div>
-          <div class="container mx-auto px-4 py-8">
-            <div class="flex flex-wrap">
-              <div class="w-full lg:w-6/12 px-4">
-                <h4 class="text-3xl font-semibold">Let's keep it clean!</h4>
-                <h5 class="text-lg mt-0 mb-2 text-gray-700">
-                    Cleanliness, service, our motto
-                </h5>
-              </div>
-              <div class="w-full lg:w-6/12 px-4">
+                <svg
+                  class="absolute bottom-0 overflow-hidden"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="none"
+                  version="1.1"
+                  viewBox="0 0 2560 100"
+                  x="0"
+                  y="0"
+                >
+                  <polygon
+                    class="text-gray-300 fill-current"
+                    points="2560 0 2560 100 0 100"
+                  ></polygon>
+                </svg>
               </div>
             </div>
-          </div>
-        </footer>
+          </main>
+          <footer class="relative bg-gray-300 pt-8 pb-6">
+            <div
+              class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
+              style="height: 80px;"
+            >
+            </div>
+            <div class="container mx-auto px-4 py-8">
+              <div class="flex flex-wrap">
+                <div class="w-full lg:w-6/12 px-4">
+                  <h4 class="text-3xl font-semibold">Let's keep it clean!</h4>
+                  <h5 class="text-lg mt-0 mb-2 text-gray-700">
+                      Cleanliness, service, our motto
+                  </h5>
+                </div>
+                <div class="w-full lg:w-6/12 px-4">
+                </div>
+              </div>
+            </div>
+          </footer>
       </body>
+
+      
+      
       <script>
         function toggleNavbar(collapseID) {
           document.getElementById(collapseID).classList.toggle("hidden");
